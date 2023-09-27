@@ -1,0 +1,22 @@
+PARA CLONAR EL RESPOSITORIO Y SEGUIR TRABAJANDOLO
+
+Abrimos terminal GIT
+
+1- Primero clonar el repositorio: https://github.com/EmersonCardenasT/Sistema_ventas_laravel.git
+2- Movernos al archivo clonado para continuar con la clonacion: cd Sistema_ventas_laravel
+
+Tenemos que instalar algunas dependencias para que el proyecto funcione
+
+3- Dependencias NODE.js: composer instalfa-install
+4- Dependencias Json: npm install
+5- Abrimos vs code
+
+    IMPORTANTE: CREAR UNA BASE DE DATOS CON EL NOMBRE A CONFIGURAR TU ARCHIVO .env
+
+6- Configuramos la conexion del archivo .env, como el archivo ya no existe sacamos una copia del archivo 
+.env.example, recortamos el nombre a solo .env y cambiamos la conexion a la BD.
+7- Luego migramos las tablas a phpmyadmin: php artisan migrate --seed
+8- Ejecutamos: php artisan serve
+9- En una terminal CMD tambien ejecutar: npm run dev
+
+Dar permiso y listo. Continuamos desarrollando
