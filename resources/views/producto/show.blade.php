@@ -37,6 +37,12 @@
                             {{ $producto->stock }}
                         </div>
                         <div class="form-group">
+                            <strong>Imagen:</strong>
+                            
+                            <img src="{{ asset($producto->imagen) }}" width="100px">
+                            
+                        </div>
+                        <div class="form-group">
                             <strong>Id Categoria:</strong>
                             {{ $producto->id_categoria }}
                         </div>

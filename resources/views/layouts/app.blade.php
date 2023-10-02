@@ -46,6 +46,10 @@
                         <a class="nav-link" href="{{ URL::to('productos') }}">{{ __('Producto') }}</a>
                         @endauth
 
+                        @auth
+                        <a class="nav-link" href="{{ URL::to('venta') }}">{{ __('Venta') }}</a>
+                        @endauth
+
                     </ul>
 
                     <!-- Right Side Of Navbar -->

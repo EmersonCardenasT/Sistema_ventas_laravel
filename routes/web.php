@@ -5,6 +5,7 @@ use App\Http\Controllers\ClienteController;
 use App\Http\Controllers\CategoriaController;
 use App\Http\Controllers\ProveedoreController;
 use App\Http\Controllers\ProductoController;
+use App\Http\Controllers\VentaController;
 
 /*
 |--------------------------------------------------------------------------
@@ -28,3 +29,4 @@ Route::resource('/clientes', ClienteController::class) -> middleware('auth');
 Route::resource('/categorias', CategoriaController::class) -> middleware('auth');
 Route::resource('/proveedores', ProveedoreController::class) -> middleware('auth');
 Route::resource('/productos', ProductoController::class) -> middleware('auth');
+Route::resource('/venta', VentaController::class) -> middleware('auth');

@@ -18,6 +18,8 @@ class ProductoController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+
     public function index()
     {
         $productos = Producto::paginate();
@@ -45,14 +47,36 @@ class ProductoController extends Controller
      * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
-    {
-        request()->validate(Producto::$rules);
+    public function store(Request $request){
 
-        $producto = Producto::create($request->all());
+        $request->validate([
+            'imagen' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048', // Reglas de validación para la imagen
+            // Otras reglas de validación para otros campos definidas en Producto::$rules
+        ]);
 
-        return redirect()->route('productos.index')
-            ->with('success', 'Producto created successfully.');
+        // Procesar la carga de la imagen
+        if ($request->hasFile('imagen') && $request->file('imagen')->isValid()) {
+            $imagen = $request->file('imagen');
+            $nombreImagen = time() . '.' . $imagen->extension();
+            $imagen->move(public_path('img'), $nombreImagen);
+            
+            // Crear el producto con los datos del formulario y la ruta de la imagen
+            $producto = Producto::create([
+                // Otras columnas del modelo Producto
+                'descripcion' => $request->input('descripcion'),
+                'precio' => $request->input('precio'),
+                'stock' => $request->input('stock'),
+                'imagen' => 'img/' . $nombreImagen,
+                'id_categoria' => $request->input('id_categoria'),
+                'id_proveedor' => $request->input('id_proveedor'),
+            ]);
+
+            return redirect()->route('productos.index')
+                ->with('success', 'Producto creado exitosamente.');
+        }
+
+        // Manejar errores si la carga de la imagen falla
+        return back()->withInput()->withErrors(['imagen' => 'Error al cargar la imagen']);
     }
 
     /**
@@ -91,12 +115,36 @@ class ProductoController extends Controller
      */
     public function update(Request $request, Producto $producto)
     {
-        request()->validate(Producto::$rules);
+        // Valida los campos, incluyendo la posible carga de una nueva imagen.
+        $request->validate([
+            'descripcion' => 'required',
+            'precio' => 'required',
+            'stock' => 'required',
+            'id_categoria' => 'required',
+            'id_proveedor' => 'required',
+            'nueva_imagen' => 'image|mimes:jpeg,png,jpg,gif|max:2048', // Nueva imagen
+        ]);
 
-        $producto->update($request->all());
+        // Actualiza los campos del producto con la información del formulario
+        $producto->descripcion = $request->input('descripcion');
+        $producto->precio = $request->input('precio');
+        $producto->stock = $request->input('stock');
+        $producto->id_categoria = $request->input('id_categoria');
+        $producto->id_proveedor = $request->input('id_proveedor');
+
+        // Procesa la carga de la nueva imagen si se proporciona
+        if ($request->hasFile('imagen') && $request->file('imagen')->isValid()) {
+            $imagen = $request->file('imagen');
+            $nombreImagen = time() . '.' . $imagen->extension();
+            $imagen->move(public_path('img'), $nombreImagen);
+            $producto->imagen = 'img/' . $nombreImagen;
+        }
+
+        // Guarda los cambios en el producto
+        $producto->save();
 
         return redirect()->route('productos.index')
-            ->with('success', 'Producto updated successfully');
+            ->with('success', 'Producto actualizado exitosamente');
     }
 
     /**

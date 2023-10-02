@@ -3,6 +3,8 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 /**
  * Class Categoria
@@ -20,7 +22,7 @@ class Categoria extends Model
     public $timestamps = false;
     
     static $rules = [
-		'descripcion' => 'required',
+		'descripcion' => 'required|alpha',
     ];
 
     protected $perPage = 20;

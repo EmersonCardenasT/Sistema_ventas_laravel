@@ -3,6 +3,8 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 /**
  * Class Proveedore
@@ -22,9 +24,9 @@ class Proveedore extends Model
     public $timestamps = false;
 
     static $rules = [
-		'razonsocial' => 'required',
-		'direccion' => 'required',
-		'telefono' => 'required',
+		'razonsocial' => ['required', 'regex:/^[A-Za-z\s]+$/'],
+		'direccion' => ['required', 'regex:/^[A-Za-z0-9\s]+$/'],
+		'telefono' => 'required|digits:9|numeric',
     ];
 
     protected $perPage = 20;

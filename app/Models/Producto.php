@@ -3,6 +3,8 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 /**
  * Class Producto
@@ -26,9 +28,10 @@ class Producto extends Model
     public $timestamps = false;
 
     static $rules = [
-		'descripcion' => 'required',
-		'precio' => 'required',
-		'stock' => 'required',
+		'descripcion' => ['required', 'regex:/^[A-Za-z\s]+$/'],
+		'precio' => ['required', 'regex:/^\d+(\.\d{1,2})?$/', 'numeric'],
+		'stock' => 'required|numeric',
+        'imagen' => 'required',
 		'id_categoria' => 'required',
 		'id_proveedor' => 'required',
     ];
@@ -40,7 +43,7 @@ class Producto extends Model
      *
      * @var array
      */
-    protected $fillable = ['descripcion','precio','stock','id_categoria','id_proveedor'];
+    protected $fillable = ['descripcion','precio','stock', 'imagen', 'id_categoria','id_proveedor'];
 
 
     /**

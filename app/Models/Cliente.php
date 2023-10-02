@@ -3,6 +3,8 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 /**
  * Class Cliente
@@ -23,10 +25,10 @@ class Cliente extends Model
     public $timestamps = false;
 
     static $rules = [
-		'nombres' => 'required',
-		'apellidos' => 'required',
-		'direccion' => 'required',
-		'telefono' => 'required',
+		'nombres' => ['required', 'regex:/^[A-Za-z\s]+$/'],
+		'apellidos' => ['required', 'regex:/^[A-Za-z\s]+$/'],
+		'direccion' => ['required', 'regex:/^[A-Za-z0-9\s]+$/'],
+		'telefono' => 'required|numeric|digits:9',
     ];
 
     protected $perPage = 20;

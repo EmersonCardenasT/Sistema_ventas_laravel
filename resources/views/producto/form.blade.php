@@ -21,6 +21,15 @@
             {{ Form::text('stock', $producto->stock, ['class' => 'form-control' . ($errors->has('stock') ? ' is-invalid' : ''), 'placeholder' => 'Stock']) }}
             {!! $errors->first('stock', '<div class="invalid-feedback">:message</div>') !!}
         </div>
+
+        <div class="form-group">
+            <label for="imagen">Imagen</label>
+            <input type="file" name="imagen" class="form-control{{ $errors->has('imagen') ? ' is-invalid' : '' }}">
+            @if ($errors->has('imagen'))
+                <div class="invalid-feedback">{{ $errors->first('imagen') }}</div>
+            @endif
+        </div>
+
         <div class="form-group">
             {{ Form::label('id_categoria') }}
             {{ Form::select('id_categoria', $categorias, $producto->id_categoria, ['class' => 'form-control' . ($errors->has('id_categoria') ? ' is-invalid' : ''), 'placeholder' => 'Seleccione']) }}

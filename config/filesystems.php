@@ -2,6 +2,13 @@
 
 return [
 
+    'resources' => [
+        'driver' => 'local',
+        'root' => storage_path('resources/img'), // Cambia la ruta según tu estructura de almacenamiento
+        'url' => env('APP_URL').'/storage',
+        'visibility' => 'public',
+    ],
+
     /*
     |--------------------------------------------------------------------------
     | Default Filesystem Disk

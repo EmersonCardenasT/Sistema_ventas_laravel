@@ -40,6 +40,7 @@
 										<th>Descripcion</th>
 										<th>Precio</th>
 										<th>Stock</th>
+										<th>Imagen</th>                       
 										<th>Id Categoria</th>
 										<th>Id Proveedor</th>
 
@@ -55,6 +56,11 @@
 											<td>{{ $producto->descripcion }}</td>
 											<td>{{ $producto->precio }}</td>
 											<td>{{ $producto->stock }}</td>
+
+											<td>
+                                                <img src="{{ asset($producto->imagen) }}" width="100px">
+                                            </td>
+
 											<td>{{ $producto->id_categoria }}</td>
 											<td>{{ $producto->id_proveedor }}</td>
 
